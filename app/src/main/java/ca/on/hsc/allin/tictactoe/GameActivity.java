@@ -20,7 +20,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_game);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        final TicTacToe game = new TicTacToe();
 
         Button b_0_0 = (Button) findViewById(R.id.b_0_0);
         b_0_0.setOnClickListener(this);
