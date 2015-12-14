@@ -9,7 +9,7 @@ public class TicTacToe {
     private char[][]board = new char[3][3];
     private int player = 1;
 
-    public void TicTacToe() {
+    TicTacToe() {
         // Instance variables
         char p1 = 'X';
         char p2 = 'O';
@@ -45,8 +45,6 @@ public class TicTacToe {
     }
 
     public void playMove(boolean p1, int id) {
-        if (p1) {
-            GameActivity.
     }
 
     private void cycle(){
