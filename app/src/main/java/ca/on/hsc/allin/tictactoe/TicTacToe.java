@@ -44,7 +44,9 @@ public class TicTacToe {
     public void displayBoard() {
     }
 
-    public void playMove(char p, int r, int c) {
+    public void playMove(boolean p1, int id) {
+        if (p1) {
+            GameActivity.
     }
 
     private void cycle(){

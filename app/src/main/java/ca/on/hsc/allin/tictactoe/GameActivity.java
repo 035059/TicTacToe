@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class GameActivity extends AppCompatActivity {
+    protected static boolean player1 = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class GameActivity extends AppCompatActivity {
         b_0_0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                game.playerAt(0, 0);
+                buttonPressed(game, R.id.b_0_0);
             }
         });
 
@@ -32,7 +33,7 @@ public class GameActivity extends AppCompatActivity {
         b_0_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                game.playerAt(0, 1);
+                buttonPressed(game, R.id.b_0_1);
             }
         });
 
@@ -40,7 +41,7 @@ public class GameActivity extends AppCompatActivity {
         b_0_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                game.playerAt(0, 2);
+                buttonPressed(game, R.id.b_0_2);
             }
         });
 
@@ -48,7 +49,7 @@ public class GameActivity extends AppCompatActivity {
         b_1_0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                game.playerAt(1, 0);
+                buttonPressed(game, R.id.b_1_0);
             }
         });
 
@@ -56,7 +57,7 @@ public class GameActivity extends AppCompatActivity {
         b_1_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                game.playerAt(1, 1);
+                buttonPressed(game, R.id.b_1_1);
             }
         });
 
@@ -64,7 +65,7 @@ public class GameActivity extends AppCompatActivity {
         b_1_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                game.playerAt(1, 2);
+                buttonPressed(game, R.id.b_1_2);
             }
         });
 
@@ -72,7 +73,7 @@ public class GameActivity extends AppCompatActivity {
         b_2_0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                game.playerAt(2, 0);
+                buttonPressed(game, R.id.b_2_0);
             }
         });
 
@@ -80,15 +81,19 @@ public class GameActivity extends AppCompatActivity {
         b_2_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                game.playerAt(2, 1);
+                buttonPressed(game, R.id.b_2_1);
             }
         });
         Button b_2_2 = (Button) findViewById(R.id.b_2_2);
         b_2_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                game.playerAt(2, 2);
+                buttonPressed(game, R.id.b_2_2);
             }
         });
+    }
+    protected static void buttonPressed (TicTacToe game, int id){
+        game.playMove(player1, id);
+        player1 = !player1;
     }
 }

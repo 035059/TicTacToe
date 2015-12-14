@@ -40,6 +40,7 @@
 
     <!-- Example settings for Bot -->
     <string name="pref_header_notifications">Bot</string>
+    <string name="pref_title_notifications">Bot</string>
 
     <string name="pref_title_bot_difficulty">Difficulty</string>
 
