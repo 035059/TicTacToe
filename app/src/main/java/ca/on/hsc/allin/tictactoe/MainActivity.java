@@ -22,13 +22,13 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToGameActivity(false);
+                goToGameActivity(true);
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToGameActivity(true);
+                goToGameActivity(false);
             }
         });
     }

@@ -123,7 +123,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (!win) {
                     Toast.makeText(getApplicationContext(), "Player 2 wins!", Toast.LENGTH_SHORT).show();
                 }
-                finish();
+                try {
+                    finish();
+                } catch (ArrayIndexOutOfBoundsException ignore){}
             }
         } catch (NullPointerException ignored) {}
     }
