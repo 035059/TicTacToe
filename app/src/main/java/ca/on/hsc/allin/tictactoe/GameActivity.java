@@ -1,6 +1,7 @@
 package ca.on.hsc.allin.tictactoe;
 
 import android.content.Intent;
+import android.opengl.GLException;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,10 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
-    protected static boolean player1Turn = true;
+    protected static boolean player1Turn;
     protected static boolean single;
     protected Boolean[][] board = new Boolean[3][3];
     int numSpaces = 0;
@@ -22,6 +24,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
         single = intent.getExtras().getBoolean("single");
+        player1Turn = true;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
@@ -75,7 +78,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         Boolean win;
         int[] botMove;
-        int[] voidMove = {-1, -1};
         Random random = new Random();
 
         try {
@@ -95,25 +97,43 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
             v.setEnabled(false);
 
-            numSpaces++;
-
-            if (numSpaces >= 9) {
-                Toast.makeText(getApplicationContext(), "TIE!", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-
             if (single) {
                 player1Turn = !player1Turn;
+                Log.v("shitter", "2 player");
             } else {
-                botMove = findWinningMove(false);
-                if (botMove == voidMove){
-                    botMove = findWinningMove(true);
+                if (!player1Turn) {
+                    player1Turn = !player1Turn;
+                } else {
+                    player1Turn = !player1Turn;
+                    Log.v("shitter", "solo");
+                    Log.v("shitter", "bot");
+                    botMove = findWinningMove(false);
+                    Log.v("shitter", "false move");
+                    if (botMove[0] == -1 && botMove [1] == -1) {
+                        botMove = findWinningMove(true);
+                        Log.v("shitter", "true move");
+                    }
+                    if (botMove[0] == -1 && botMove [1] == -1) {
+                        Log.v("shitter", "void move");
+                        while (true) {
+                            botMove[0] = random.nextInt(3);
+                            botMove[1] = random.nextInt(3);
+                            Log.v("shitter", "random move");
+                            if (board[botMove[0]][botMove[1]] == null) {
+                                Log.v("shitter", String.valueOf(board[botMove[0]][botMove[1]]));
+                                break;
+                            }
+                            Log.v("shitter", "broken?");
+                        }
+                        buttonArray[botMove[0]][botMove[1]].performClick();
+                        Log.v("shitter", "BOT DID SHIT");
+                    }
+                    Log.v("shitter", String.valueOf(botMove[0]));
+                    Log.v("shitter", String.valueOf(botMove[1]));
                 }
-                if (botMove == voidMove) {
-
-                }
-                buttonArray[botMove[0]][botMove[1]].performClick();
             }
+
+            numSpaces++;
 
             win = winner();
 
@@ -122,12 +142,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(getApplicationContext(), "Player 1 wins!", Toast.LENGTH_SHORT).show();
                 } else if (!win) {
                     Toast.makeText(getApplicationContext(), "Player 2 wins!", Toast.LENGTH_SHORT).show();
+                } else if (numSpaces >= 9) {
+                    Toast.makeText(getApplicationContext(), "TIE!", Toast.LENGTH_SHORT).show();
                 }
                 try {
                     finish();
-                } catch (ArrayIndexOutOfBoundsException ignore){}
+                } catch (ArrayIndexOutOfBoundsException ignore) {}
             }
-        } catch (NullPointerException ignored) {}
+        } catch (GLException ignored) {}
     }
 
     protected Boolean winner() {
@@ -160,7 +182,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         for (int x = 0; x < 3; x++) {
             if (board[x][0] == player && board[x][1] == player) {
-                if (board[x][2] == !player)
+                if (board[x][2] != null && board[x][2] == !player)
                     break;
                 else {
                     toRet[0] = x;
@@ -168,7 +190,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     valueChanged = true;
                 }
             } else if (board[x][1] == player && board[x][2] == player) {
-                if (board[x][0] == !player)
+                if (board[x][0] != null && board[x][0] == !player)
                     break;
                 else {
                     toRet[0] = x;
@@ -176,7 +198,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     valueChanged = true;
                 }
             } else if (board[x][0] == player && board[x][2] == player) {
-                if (board[x][1] == !player)
+                if (board[x][1] != null && board[x][1] == !player)
                     break;
                 else {
                     toRet[0] = x;
@@ -187,7 +209,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         for (int y = 0; y < 3; y++) {
             if (board[0][y] == player && board[1][y] == player) {
-                if (board[2][y] == !player)
+                if (board[2][y] != null && board[2][y] == !player)
                     break;
                 else {
                     toRet[0] = 2;
@@ -195,7 +217,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     valueChanged = true;
                 }
             } else if (board[1][y] == player && board[2][y] == player) {
-                if (board[0][y] == !player)
+                if (board[0][y] != null && board[0][y] == !player)
                     break;
                 else {
                     toRet[0] = 0;
@@ -203,7 +225,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     valueChanged = true;
                 }
             } else if (board[0][y] == player && board[2][y] == player) {
-                if (board[1][y] == !player)
+                if (board[1][y] != null && board[1][y] == !player)
                     break;
                 else {
                     toRet[0] = 1;
