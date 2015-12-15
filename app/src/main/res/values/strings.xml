@@ -12,39 +12,4 @@
     <string name="b_2_1"> </string>
     <string name="b_2_2"> </string>
     <string name="title_activity_settings">Settings</string>
-
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
-
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
-
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
-
-    <!-- Example settings for Bot -->
-    <string name="pref_header_notifications">Bot</string>
-    <string name="pref_title_notifications">Bot</string>
-
-    <string name="pref_title_bot_difficulty">Difficulty</string>
-
-    <string name="pref_title_hard">hard</string>
-    <string name="pref_title_medium">medium</string>
-    <string name="pref_title_easy">easy</string>
 </resources>
