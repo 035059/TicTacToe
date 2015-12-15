@@ -132,6 +132,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     Log.v("shitter", String.valueOf(botMove[1]));
                 }
             }
+            //// TODO: 12/15/2015 When there is only one button left endless loop opens
 
             numSpaces++;
 
